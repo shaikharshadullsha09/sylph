@@ -16,8 +16,9 @@ def get_connection():
         "database": os.getenv("DB_NAME"),
         "connection_timeout": 10,
     }
-    # Cloud databases usually require an encrypted connection with a CA file.
-       ca_file = os.getenv("DB_SSL_CA")
+
+    # Cloud databases require an encrypted connection with a trusted certificate.
+    ca_file = os.getenv("DB_SSL_CA")
     if ca_file == "certifi":
         import certifi
         config["ssl_ca"] = certifi.where()
@@ -25,6 +26,7 @@ def get_connection():
         if not os.path.isabs(ca_file):
             ca_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), ca_file)
         config["ssl_ca"] = ca_file
+
     return mysql.connector.connect(**config)
 
 
@@ -85,6 +87,7 @@ def rename_conversation(conversation_id, owner, new_title):
         "UPDATE conversations SET title = %s WHERE id = %s AND owner = %s",
         (new_title, conversation_id, owner),
     )
+
 
 def delete_conversation(conversation_id, owner):
     # Delete the messages explicitly, so this works even if the database
