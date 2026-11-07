@@ -62,9 +62,9 @@ The browser calls a small REST API (`/api/conversations`, `/api/conversations/<i
 
 3\. Create a MySQL database and run `schema.sql` in it
 
-4\. Copy `.env.example` to `.env` and fill in your values
+4\. Copy `.env.example` to `.env` and fill in your values. For a local MySQL server, use `DB\_HOST=localhost`, `DB\_PORT=3306`, your MySQL user, password and database name, and delete the `DB\_SSL\_CA` line.
 
-5\. Start the app: `python app.py` and open http://127.0.0.1:5000
+5\. Start the app with `python app.py` and open http://127.0.0.1:5000
 
 
 
@@ -72,5 +72,13 @@ The browser calls a small REST API (`/api/conversations`, `/api/conversations/<i
 
 \- Messages are sent to Google Gemini, so avoid sharing personal details.
 
-\- This is a portfolio project running on free tiers, so usage limits apply.
+
+
+\## Limitations and next steps
+
+\- Visitors are identified by an anonymous cookie, so clearing cookies loses that visitor's chat history. Real user accounts would be the next step.
+
+\- Replies appear all at once. Streaming them word by word would feel more responsive.
+
+\- The project runs on free tiers (Gemini API, TiDB Cloud Starter, Vercel Hobby), so usage limits apply.
 
